@@ -14,6 +14,11 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode( '/', $uri );
 
 //ENDPOINTS OR RETURN 404
+if($requestMethod == "GET" && $uri[1] == "info"){
+    $routes->routes = array("/anime", "/anime/{id}", "/char", "/char/{id}");
+    echo json_encode($routes);
+    die;
+}
 if($requestMethod == "GET" && $uri[1] == "anime" && (int) $uri[2] == false){
     $controller = new AnimeController($dbConnection);
     $controller->findAll();
